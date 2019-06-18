@@ -144,6 +144,12 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
+//Route for deleteing a particular note //testing
+app.delete('/articles/:id', function (req, res) {
+    console.log("delete request")
+    res.send('Got a DELETE request at /articles/:id');
+  })
+
 // Start the server
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");

@@ -35,11 +35,13 @@ $.getJSON("/articles", function(data) {
   
         // If there's a note in the article
         if (data.note) {
+            console.log(data.note._id);
             for(let i=0;i < data.note.length;i++){
                 // Place the title of the note in the title input
-                $("#notes").append("</br> NOTE"+i+ "TITLE: "+data.note[i].title + "</br>");
                 // Place the body of the note in the body textarea
-                $("#notes").append("NOTE" + i +"BODY: "+data.note[i].body+"</br></br>");
+                $("#notes").append(
+                    "</br><div class='noteText'>NOTE"+i+ "TITLE: "+data.note[i].title + "</br>"
+        +"NOTE" + i +"BODY: "+data.note[i].body+"</br></br></div>");
                 console.log (i+ " : iteration : " + data.note[i].title);
             }
         }
@@ -75,3 +77,20 @@ $.getJSON("/articles", function(data) {
     $("#bodyinput").val("");
   });
   
+
+  //When you click a note (improve functionality later //testing)
+  $(document).on("click", ".noteText", function() {
+        console.log("deleting note: "+$(this).text())
+            // Run a POST request to change the note, using what's entered in the inputs
+        $.ajax({
+            method: "DELETE",
+            url: "/articles/" + "1", //fix
+            // data: {
+            // // Value taken from title input
+            // title: $("#titleinput").val(),
+            // // Value taken from note textarea
+            // body: $("#bodyinput").val()
+            // }
+        })
+  
+    });
