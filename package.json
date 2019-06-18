@@ -1,0 +1,26 @@
+{
+  "name": "scrapedb",
+  "version": "1.0.0",
+  "description": "A demonstration using the Axios and Cheerio libraries to scrape information from external sites and store them in a MongoDB database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leavinit/ScrapeDB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leavinit/ScrapeDB/issues"
+  },
+  "homepage": "https://github.com/leavinit/ScrapeDB#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.6.0"
+  }
+}
