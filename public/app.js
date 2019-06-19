@@ -15,7 +15,9 @@
             // For each one
             for (var i = 0; i < data.length; i++) {
             // Display the apropos information on the page
-            $("#articles").append("<p class='article' data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link +
+            $("#articles").append("<p class='article' data-id='" + data[i]._id + "'>" 
+            // + data[i].title + "<br />" + data[i].link +
+            +"<a href="+data[i].link+">"+ data[i].title +"</a>"  +
             "<br />" + data[i].summary + "</br></br></p>");
             }
                     //Hightlight p tags on mouseover
