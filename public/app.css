@@ -1,8 +1,14 @@
 body { background-color: #F2F6D0 }
       #wrapper {
-        width: 960px;
+        /* width: 960px; */
         margin-left: auto;
         margin-right: auto;
+        background-image:url("/images/bg.jpg");
+
+        background-repeat:no-repeat;
+     
+        background-size:cover;
+     
         /* padding-top: 5%; */
       }
       #articles {
@@ -14,12 +20,22 @@ body { background-color: #F2F6D0 }
       }
       #notes {
         float: right;
-        width: 30%;
+        width: 35%;
 
+      }
+      .noteText{
+        color: #FCF5C7;
+        background : rgba(19, 19, 53, 0.671);
+
+      }
+      #notesTitleDiv{
+        color: #FCF5C7;
+
+        background : rgba(19, 19, 53, 0.671);
       }
       textarea, input {
         display: block;
-        width: 100%;
+        width: 80%;
         background-color: #FCF5C7;
       }
       input {
@@ -33,4 +49,23 @@ body { background-color: #F2F6D0 }
       .article{
         margin: 10px;
         padding : 5px;
+        color : rgb(179, 184, 178);
+        background : rgba(19, 19, 53, 0.671);
+        border : solid 1px rgb(179, 184, 178);
+      }
+      #header{
+        padding-top: 15px;
+        background : rgba(19, 19, 53, 0.671);
+        color : rgb(179, 184, 178);
+      }
+      #banner {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 3em;
+      }
+      #banner, #subBanner{
+        margin-left: 20px;
+      }
+
+      #scrapeButton{
+        margin-left: 100px;
       }

@@ -21,9 +21,9 @@
                     //Hightlight p tags on mouseover
   
             $(".article").hover(function() { 
-                $(this).css("border", "4px solid green"); 
+                $(this).css("border", "3px solid green"); 
             }, function() { 
-                $(this).css("border", "none"); 
+                $(this).css("border", "1px solid rgb(179, 184, 178)"); 
             }); 
         });
 
@@ -48,11 +48,11 @@
       .then(function(data) {
         console.log(data);
         // The title of the article
-        $("#notes").append("<h2>" + data.title + "</h2>");
+        $("#notes").append("<h2 id='notesTitleDiv'>" + data.title + "</h2>");
         // An input to enter a new title
-        $("#notes").append("<input id='titleinput' name='title' >");
+        $("#notes").append("<input id='titleinput' placeholder=' Topic ' name='title' >");
         // A textarea to add a new note body
-        $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+        $("#notes").append("<textarea id='bodyinput' name='body' placeholder=' Leave a Message '></textarea>");
         // A button to submit a new note, with the id of the article saved to it
         $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
         $("#notesInput").append("<button id='addNewNote'>New Note</button>");
