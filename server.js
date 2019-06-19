@@ -9,8 +9,7 @@ var cheerio = require("cheerio");
 
 //Models need to be listed in /models/index.js
 var db = require("./models");
-
-var PORT = 8888;
+var PORT = process.env.PORT || 8888;
 var app = express();
 
 // middleware
