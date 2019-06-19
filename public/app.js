@@ -45,7 +45,7 @@ $.getJSON("/articles", function(data) {
                     " data-note-id="+data.note[i]._id+">NOTE"+i
                     + "TITLE: "+data.note[i].title + "</br>"
                     +"NOTE" + i +"BODY: "+data.note[i].body+
-                    "<button class='noteButton'></br></br>"
+                    "<button class='noteButton'>X</button></br></br>"
                     +"</div>");
                 // console.log (i+ " : iteration : " + data.note[i].title);
             }
@@ -84,18 +84,22 @@ $.getJSON("/articles", function(data) {
   
 
   //When you click a note (improve functionality later //testing)
-  $(document).on("click", ".noteText ", function() {
-        console.log("/articles/" + $(this).attr("data-id")+"/"+$(this).attr("data-note-id"));
+  $(document).on("click", ".noteButton ", function() {
+        console.log("/articles/" + $(this).parent().attr("data-id")+"/"+$(this).parent().attr("data-note-id"));
         event.stopPropagation();
         event.stopImmediatePropagation();
-
+        //delete the note's div
+        articleId =  $(this).parent().attr("data-id");
+        noteId = $(this).parent().attr("data-note-id");
         // console.log("deleting note: "+$(this).text())
         // console.log("with id: "+$(this).attr("data-id"))
         // Remove the note
+        $(this).parent().empty();
             // Run a POST request to change the note, using what's entered in the inputs
         $.ajax({
             method: "DELETE",
-            url: "/articles/" + $(this).attr("data-id")+"/"+$(this).attr("data-note-id")
+            url: "/articles/" +articleId +"/"+ noteId
+            
             // data: {
             // // Value taken from title input
             // title: $("#titleinput").val(),
@@ -104,8 +108,7 @@ $.getJSON("/articles", function(data) {
             // }
         }).then(function(data){
             console.log("Returned from delete request"+data)
-            $(this).empty();
-        
+            
         })
   
     });

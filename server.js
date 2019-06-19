@@ -23,8 +23,20 @@ app.use(express.static("public"));
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapedArticlesDB";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-// Routing
+// Handlebars templating engine
+var exphbs = require("express-handlebars");
 
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+
+/////// Routing ///////
+
+// Main route to display site
+app.get("/", (req,res)=>{
+    // console.log("at / route");
+   res.render("index"); 
+});
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
@@ -141,11 +153,11 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-//Route for deleteing a particular note //testing
+//Route for deleteing a particular note 
 app.delete('/articles/:id/:noteid', function (req, res) {
     console.log("delete request for id: "+req.params.id)
     console.log("with noteid: "+req.params.noteid);
-    //ridiculous amt of testing/db config happened here 8ish hrs :(
+    //ridiculous amt of testing/db recconfig happened here 8ish hrs :(
     // sample delete (1st _id would be article id)
     // collection.update(
     //     { _id: id },
