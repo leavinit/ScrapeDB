@@ -55,6 +55,7 @@
         $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
         // A button to submit a new note, with the id of the article saved to it
         $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        $("#notesInput").append("<button id='addNewNote'>New Note</button>");
   
         // If there's a note in the article
         if (data.note) {
@@ -67,7 +68,7 @@
                     "</br><div class='noteText' data-id="+data._id+
                     " data-note-id="+data.note[i]._id+">NOTE"+i
                     + "TITLE: "+data.note[i].title + "</br>"
-                    +"NOTE" + i +"BODY: "+data.note[i].body+
+                    +"NOTE: "+data.note[i].body+
                     "<button class='noteButton'>X</button></br></br>"
                     +"</div>");
                 // console.log (i+ " : iteration : " + data.note[i].title);
@@ -108,7 +109,7 @@
   });
   
 
-  //When you click a note (improve functionality later //testing)
+  //When you click a note delete button
   $(document).on("click", ".noteButton ", function() {
         console.log("/articles/" + $(this).parent().attr("data-id")+"/"+$(this).parent().attr("data-note-id"));
         event.stopPropagation();
@@ -118,9 +119,11 @@
         noteId = $(this).parent().attr("data-note-id");
         // console.log("deleting note: "+$(this).text())
         // console.log("with id: "+$(this).attr("data-id"))
+
         // Remove the note
         $(this).parent().empty();
-            // Run a POST request to change the note, using what's entered in the inputs
+        
+        // Run a POST request to change the note, using what's entered in the inputs
         $.ajax({
             method: "DELETE",
             url: "/articles/" +articleId +"/"+ noteId
