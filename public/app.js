@@ -35,14 +35,19 @@ $.getJSON("/articles", function(data) {
   
         // If there's a note in the article
         if (data.note) {
-            console.log(data.note._id);
+            
             for(let i=0;i < data.note.length;i++){
+                console.log(data.note[i]._id);
                 // Place the title of the note in the title input
                 // Place the body of the note in the body textarea
                 $("#notes").append(
-                    "</br><div class='noteText'>NOTE"+i+ "TITLE: "+data.note[i].title + "</br>"
-        +"NOTE" + i +"BODY: "+data.note[i].body+"</br></br></div>");
-                console.log (i+ " : iteration : " + data.note[i].title);
+                    "</br><div class='noteText' data-id="+data._id+
+                    " data-note-id="+data.note[i]._id+">NOTE"+i
+                    + "TITLE: "+data.note[i].title + "</br>"
+                    +"NOTE" + i +"BODY: "+data.note[i].body+
+                    "<button class='noteButton'></br></br>"
+                    +"</div>");
+                // console.log (i+ " : iteration : " + data.note[i].title);
             }
         }
       });
@@ -79,18 +84,28 @@ $.getJSON("/articles", function(data) {
   
 
   //When you click a note (improve functionality later //testing)
-  $(document).on("click", ".noteText", function() {
-        console.log("deleting note: "+$(this).text())
+  $(document).on("click", ".noteText ", function() {
+        console.log("/articles/" + $(this).attr("data-id")+"/"+$(this).attr("data-note-id"));
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+        // console.log("deleting note: "+$(this).text())
+        // console.log("with id: "+$(this).attr("data-id"))
+        // Remove the note
             // Run a POST request to change the note, using what's entered in the inputs
         $.ajax({
             method: "DELETE",
-            url: "/articles/" + "1", //fix
+            url: "/articles/" + $(this).attr("data-id")+"/"+$(this).attr("data-note-id")
             // data: {
             // // Value taken from title input
             // title: $("#titleinput").val(),
             // // Value taken from note textarea
             // body: $("#bodyinput").val()
             // }
+        }).then(function(data){
+            console.log("Returned from delete request"+data)
+            $(this).empty();
+        
         })
   
     });

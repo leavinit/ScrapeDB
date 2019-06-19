@@ -47,15 +47,12 @@ app.get("/scrape", function(req, res) {
             .children("a")
             .attr("href");
         result.summary = $(this).parent().find("p.teaser > a").text();
-        // console.log (")))))))))))))))))))))))))))))))))))(((((((((((((((((((((((")
-        // console.log ($(this).parent().find("p.teaser > a").text());
-           
-        if(!result){console.log("null result before db 1111") }
+
+        if(!result){console.log("null result before db check") }
         if(result == ""){
-            console.log("empty title before db check 2222")
-            return;
+            console.log("empty title before db check")
         }
-        console.log("result before findone "+result.title);
+        // console.log("result before findone "+result.title);
         //Check the database (by title) to see if article already is stored
         db.Article.findOne({ title: result.title })
         .then(function(dbArticle) {
@@ -145,10 +142,36 @@ app.post("/articles/:id", function(req, res) {
 });
 
 //Route for deleteing a particular note //testing
-app.delete('/articles/:id', function (req, res) {
-    console.log("delete request")
-    res.send('Got a DELETE request at /articles/:id');
+app.delete('/articles/:id/:noteid', function (req, res) {
+    console.log("delete request for id: "+req.params.id)
+    console.log("with noteid: "+req.params.noteid);
+    //ridiculous amt of testing/db config happened here 8ish hrs :(
+    // sample delete (1st _id would be article id)
+    // collection.update(
+    //     { _id: id },
+    //     { $pull: { 'contact.phone': { number: '+1786543589455' } } }
+    //   );
+    // db.Article.findByIdAndUpdate(
+    //     req.params.id, { $pull: { "note": { _id: req.params.linkId } } }, { safe: true, upsert: true });
+    db.Note.remove({"_id" : req.params.noteid}, (data)=>{console.log(data)});
+    // console.log(index);
+        // db.Article.friends.splice(index, 1);
+        // db.Article.save();
+
+    // db.Article.update( {"_id" : mongoose.Types.ObjectId(req.params.id) },{ $pull : { "note" : mongoose.Types.ObjectId(req.params.noteid) }});
+    //   db.Article.update( {"_id" : req.params.id},{ $pull : { "note" : req.params.noteid }});
+    //   db.Note.remove({"_id" : req.params.noteid});
+      // return db.Article.update({ _id: ""+req.params.id }, {$pull: {_id: ""+req.params.noteid }}, { new: true });
   })
+//   .then(function(data){
+//     console.log(data);
+// //     // res.send('Got a DELETE request at /articles/:id');
+    
+//   })
+//   .catch(function(err) {
+//     // If an error occurred, send it to the client
+//     res.json(err);
+//   });
 
 // Start the server
 app.listen(PORT, function() {
