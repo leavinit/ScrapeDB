@@ -1,4 +1,8 @@
+  //hide the notes section (until article is clicked)
+  $("#notes").hide();
   
+
+  //handle the get news button
   $("#scrapeButton").click(function(e){
       e.preventDefault();
       $.ajax({
@@ -11,9 +15,16 @@
             // For each one
             for (var i = 0; i < data.length; i++) {
             // Display the apropos information on the page
-            $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link +
-            "<br /></br>" + data[i].summary + "</br></br></p>");
+            $("#articles").append("<p class='article' data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link +
+            "<br />" + data[i].summary + "</br></br></p>");
             }
+                    //Hightlight p tags on mouseover
+  
+            $(".article").hover(function() { 
+                $(this).css("border", "4px solid green"); 
+            }, function() { 
+                $(this).css("border", "none"); 
+            }); 
         });
 
       });
@@ -22,7 +33,9 @@
   // Whenever someone clicks a p tag
   $(document).on("click", "p", function() {
     // Empty the notes from the note section
+  
     $("#notes").empty();
+  
     // Save the id from the p tag
     var thisId = $(this).attr("data-id");
   
@@ -59,6 +72,8 @@
                     +"</div>");
                 // console.log (i+ " : iteration : " + data.note[i].title);
             }
+            //finally show the note
+            $("#notes").show();
         }
       });
   });
